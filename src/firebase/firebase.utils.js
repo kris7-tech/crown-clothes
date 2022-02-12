@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
-const config=  {
+const config =  {
     apiKey: "AIzaSyDlpk-Fb68s1JfvjaMw_RLmVLeO56eDw5I",
     authDomain: "crown-db-cd29e.firebaseapp.com",
     projectId: "crown-db-cd29e",
@@ -12,10 +12,12 @@ const config=  {
     measurementId: "G-WQFR8VWE7N"
   };
 
+  firebase.initializeApp(config);
+
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;
 
-    const userRef = firestore.doc(`users/${userAuth.id}`);
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
     
     const snapShot = await userRef.get();
 
@@ -29,7 +31,7 @@ const config=  {
           email,
           createdAt,
           ...additionalData
-        })
+        });
       } catch(error) {
         console.log('error creating user', error.message)
       }
@@ -39,7 +41,7 @@ const config=  {
   };
 
 
-  firebase.initializeApp(config);
+ 
 
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();

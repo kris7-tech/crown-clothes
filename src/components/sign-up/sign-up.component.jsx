@@ -29,10 +29,11 @@ if(password !== confirmPassword ) {
     return;
 }
 try{
-    const { user } = await auth.createUserWithEmailAndPassword(email, password)
+    const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-    createUserProfileDocument(user, {displayName});
-this.setState({
+   await createUserProfileDocument(user, {displayName});
+ 
+    this.setState({
     displayName: '',
     email: '',
     password: '',
@@ -46,8 +47,8 @@ this.setState({
 
 handleChange = event => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
-}
+    this.setState({ [name]: value });
+};
 
 render() {
     const {displayName, email, password, confirmPassword } = this.state;
@@ -91,7 +92,7 @@ render() {
               <CustomButton type='submit'>SIGN UP </CustomButton>
            </form>
         </div>
-    )
+    );
 
 }
 }
